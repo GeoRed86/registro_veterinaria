@@ -16,7 +16,7 @@ function obtenerDatosMascotas() {
     };
 }
 
-function validarFormulario() {
+function validarFormulario(mascota) {
     if (mascota.nombre === "") {
         return "Debe ingresar Nombre de la Mascota";
     }
@@ -58,18 +58,79 @@ function mostrarMascotas() {
         let item = document.createElement("li");
 
         item.textContent = mascota.nombre +
-            " | Especie: " + mascotas.especie +
-            " | Dueño: " + mascotas.propietario +
-            " | Edad: " + mascotas.edad +
-            " años | Estado: " + mascotas.estado;
+            " | Especie: " + mascota.especie +
+            " | Dueño: " + mascota.propietario +
+            " | Edad: " + mascota.edad +
+            " años | Estado: " + mascota.estado + " ";
 
-        
+        let botonCambiar = document.createElement("button");
+        botonCambiar.textContent = "Cambiar Estado";
+
+        botonCambiar.addEventListener("click", function() {
+            cambiarEstado(index);
+        });
+
+        item.appendChild(botonCambiar);
+        lista.appendChild(item);
+
     });
+
+    calcularTotales();
+}
+
+function calcularTotales() {
+    let totalMascotas = 0;
+    let totalPendientes = 0;
+    let totalAtencion = 0;
+    let totalAlta = 0;
+
+    mascotas.forEach(mascota => {
+        totalMascotas++;
+
+        if (mascota.estado === "Pendiente") {
+            totalPendientes++;
+        } else if (mascota.estado === "En Atencion") {
+            totalAtencion++;
+        } else if (mascota.estado === "De Alta") {
+            totalAlta++;
+        }
+
+    });
+    document.getElementById("totalMascotas").textContent = 
+        "Total de Mascotas: " + totalMascotas;
+    document.getElementById("totalPendientes").textContent = 
+        "Total de Mascotas Pendientes: " + totalPendientes;
+    document.getElementById("totalEnAtencion").textContent = 
+        "Total de Mascotas En Atencion: " + totalAtencion;
+    document.getElementById("totalDeAlta").textContent = 
+        "Total de Mascotas De Alta: " + totalAlta;
+}
+
+function cambiarEstado(index) {
+    let mascotaSeleccionada = mascotas[index];
+
+    if (mascotaSeleccionada.estado === "Pendiente") {
+        mascotaSeleccionada.estado = "En Atencion";
+        mostrarMensaje(mascotaSeleccionada.nombre + " esta siendo Atendida");
+
+    } else if (mascotaSeleccionada.estado === "En Atencion") {
+        mascotaSeleccionada.estado = "De Alta";
+        mostrarMensaje(mascotaSeleccionada.nombre + " ha sido dado/a De Alta ");
+
+    } else {
+        mostrarMensaje(mascotaSeleccionada.nombre + " ya fue dado/a de alta")
+    }
+
+    mostrarMascotas();
+}
+
+function mostrarMensaje(texto) {
+    document.getElementById("mensaje").textContent = texto;
 }
 
 function limpiarFormulario() {
     document.getElementById("mascotaNombre").value = "";
-    document.getElementById("mascoEspecie").value = "";
+    document.getElementById("mascotaEspecie").value = "";
     document.getElementById("mascotaPropietario").value = "";
     document.getElementById("mascotaEdad").value = "";
 
