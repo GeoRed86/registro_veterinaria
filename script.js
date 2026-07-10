@@ -17,16 +17,16 @@ function obtenerDatosMascotas() {
 }
 
 function validarFormulario() {
-    if (mascotas.nombre === "") {
+    if (mascota.nombre === "") {
         return "Debe ingresar Nombre de la Mascota";
     }
-    if (mascotas.especie === "") {
+    if (mascota.especie === "") {
         return "Debe ingresar la especie de la mascota";
     }
-    if (mascotas.propietario === "") {
+    if (mascota.propietario === "") {
         return "Debe ingresar el nombre del propietario";
     }
-    if (mascotas.edad < 0 || isNaN(mascotas.edad)) {
+    if (mascota.edad < 0 || isNaN(mascota.edad)) {
         return "Debe ingresar edad mayor a 0";
     }
 
