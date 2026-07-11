@@ -1,0 +1,322 @@
+/* ==========================================
+   1. CONFIGURACIÓN GENERAL Y ENTORNO OSCURO
+   ========================================== */
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  /* Gradiente profundo obligatorio para que el vidrio resalte */
+  background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
+  color: #ffffff;
+  position: relative;
+  padding-bottom: 120px; /* Margen de seguridad para el footer */
+}
+
+h1 {
+  text-align: center;
+  font-size: 2.8rem;
+  background: linear-gradient(to right, #ffffff, #93c5fd);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin: 25px 0;
+}
+
+/* 💻 EL MAESTRO DE LA DISTRIBUCIÓN: Activamos dos columnas de pantalla */
+.dashboard-grid {
+  width: 95%;
+  max-width: 1400px; /* Expandimos el ancho total para ocupar la pantalla */
+  margin: 0 auto;
+  display: grid;
+  /* Crea 2 columnas: la izquierda ocupa 1.2 porciones y la derecha 1 porción del espacio */
+  grid-template-columns: 1.2fr 1fr; 
+  gap: 30px; /* Separación física entre ambas columnas */
+  align-items: start; /* Evita que las tarjetas se estiren verticalmente de forma fea */
+  position: relative;
+  z-index: 10;
+}
+
+/* Espaciado interno vertical para las tarjetas de cada lado */
+.col-izquierda, .col-derecha {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+/* 📱 Diseño Responsivo: Si la pantalla es muy chica (celular), vuelve a una sola columna */
+@media (max-width: 900px) {
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ==========================================
+   2. CÍRCULOS FLOTANTES DETRÁS DEL VIDRIO
+   ========================================== */
+.circle {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(70px); /* Desenfoque alto para simular iluminación ambiental suave */
+  z-index: 1;
+}
+.circle-1 {
+  width: 450px;
+  height: 450px;
+  background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+  top: 10%;
+  left: 5%;
+}
+.circle-2 {
+  width: 400px;
+  height: 400px;
+  background: linear-gradient(135deg, #ec4899, #f43f5e);
+  bottom: 10%;
+  right: 5%;
+}
+
+/* ==========================================
+   3. BLOQUE MAESTRO: GLASSMORPHISM CARD
+   ========================================== */
+.glass-card {
+  padding: 30px;
+  border-radius: 20px;
+  
+  /* Núcleo del efecto cristalino: */
+  background: rgba(255, 255, 255, 0.05); /* Opacidad blanca sumamente baja (5%) */
+  backdrop-filter: blur(20px);           /* Difumina los círculos que pasan por detrás */
+  -webkit-backdrop-filter: blur(20px);   /* Compatibilidad requerida por navegadores Apple */
+  
+  /* Borde sutil que imita el reflejo y brillo en el canto del vidrio */
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  /* Sombra oscura y expandida para simular relieve flotante */
+  box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.25);
+}
+
+.glass-card h2 {
+  margin-top: 0;
+  font-size: 1.5rem;
+  color: #93c5fd;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding-bottom: 10px;
+  margin-bottom: 20px;
+}
+
+/* ==========================================
+   4. INPUTS, SELECTS Y COMPONENTES DE TEXTO
+   ========================================== */
+/* Diseñamos las cajas de texto con un look semi-transparente integrado */
+input[type="text"],
+input[type="number"],
+.glass-select {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 15px;
+  box-sizing: border-box;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 10px;
+  color: #ffffff;
+  font-size: 1rem;
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+input::placeholder {
+  color: #94a3b8;
+}
+
+/* Efecto de foco cuando el usuario hace clic para escribir */
+input:focus,
+.glass-select:focus {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: #3b82f6;
+  box-shadow: 0 0 10px rgba(59, 130, 246, 0.3);
+}
+
+/* Adaptación del select para el menú desplegable oscuro */
+.glass-select option {
+  background-color: #1e1b4b; /* Evita que el fondo del menú sea blanco genérico */
+  color: #ffffff;
+}
+
+/* Etiquetas generales de texto dentro de formularios */
+label {
+  display: inline-block;
+  margin-bottom: 5px;
+  font-size: 0.9rem;
+  color: #cbd5e1;
+}
+
+/* Mensajes informativos breves debajo de los formularios */
+#mensaje {
+  text-align: center;
+  font-weight: 600;
+  color: #f3f4f6;
+  margin-top: 10px;
+}
+
+/* ==========================================
+   5. BOTONES DE ACCIÓN (Glass, Guardar, Borrar)
+   ========================================== */
+.glass-btn {
+  width: 100%;
+  background: rgba(59, 130, 246, 0.25); /* Tinte azul traslúcido */
+  border: 1px solid rgba(59, 130, 246, 0.4);
+  padding: 14px;
+  color: #ffffff;
+  font-weight: bold;
+  font-size: 1rem;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.glass-btn:hover {
+  background: rgba(59, 130, 246, 0.45);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(59, 130, 246, 0.3);
+}
+
+/* Ficha de Edición dedicada */
+.edicion-card {
+  margin-top: 20px;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px dashed rgba(255, 255, 255, 0.2);
+  border-radius: 12px;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 15px;
+  margin-top: 10px;
+}
+
+.guardar-btn {
+  flex: 1;
+  background: #10b981;
+  border: none;
+  padding: 12px;
+  color: white;
+  font-weight: bold;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.eliminar-btn {
+  flex: 1;
+  background: #ef4444;
+  border: none;
+  padding: 12px;
+  color: white;
+  font-weight: bold;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.guardar-btn:hover,
+.eliminar-btn:hover {
+  opacity: 0.85;
+}
+
+/* ==========================================
+   6. LISTADOS DINÁMICOS Y ELEMENTOS (`<li>`)
+   ========================================== */
+.styled-list {
+  list-style: none;
+  padding: 0;
+  margin: 15px 0;
+}
+
+/* Cada renglón de mascota inyectado dinámicamente */
+.styled-list li {
+  background: rgba(255, 255, 255, 0.04);
+  padding: 14px;
+  margin-bottom: 10px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.95rem;
+}
+
+/* Botones pequeños de acción en línea creados dinámicamente en tu bucle JavaScript */
+.styled-list li button {
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: white;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  transition: background 0.2s;
+}
+
+.styled-list li button:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+/* ==========================================
+   7. SECCIÓN DE TOTALES NUMÉRICOS (GRID CARD)
+   ========================================== */
+.totals-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* Divide en dos columnas perfectas */
+  gap: 15px;
+}
+
+.totals-card h3 {
+  margin: 0;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: #cbd5e1;
+  background: rgba(0, 0, 0, 0.15);
+  padding: 15px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.totals-card h3 span {
+  display: block;
+  font-size: 1.6rem;
+  font-weight: bold;
+  color: #60a5fa;
+  margin-top: 5px;
+}
+
+/* ==========================================
+   8. COMPONENTE FOOTER AL FONDO
+   ========================================== */
+footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  background: rgba(15, 23, 42, 0.6);
+  backdrop-filter: blur(10px);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 15px 0;
+  text-align: center;
+  font-size: 0.85rem;
+  color: #94a3b8;
+}
+
+footer nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 8px 0 0 0;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+footer nav a {
+  color: #60a5fa;
+  text-decoration: none;
+}
+
+footer nav a:hover {
+  text-decoration: underline;
+}

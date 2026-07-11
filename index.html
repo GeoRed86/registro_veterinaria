@@ -1,55 +1,126 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Veterinaria</title>
+    <title>Veterinaria Glassmorphism - Dashboard</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>Registro Veterinaria</h1>
+
     
-    <input type="text" id="mascotaNombre" placeholder="Nombre de la Mascota">
-    <input type="text" id="mascotaEspecie" placeholder="Especie de la Mascota">
-    <input type="text" id="mascotaPropietario" placeholder="Nombre del Dueño de la Mascota">
-    <input type="number" id="mascotaEdad" placeholder="Edad de la Mascota">
+    <div class="circle circle-1"></div>
+    <div class="circle circle-2"></div>
+
+    <h1>Control Veterinaria</h1>
+
     
-
-    <button id="btnRegistrar">Registrar Mascota</button>
-
-    <p id="mensaje"></p>
-
-    <h2>Registro Mascotas</h2>
-    <ul id="listaRegistro"></ul>
-
-    <h2>Buscar Mascota</h2>
-    <input type="text" id="buscarMascota" placeholder="Nombre Mascota">
-
-    <button id="btnBuscar">Buscar</button>
-    <h3>Resultado Busqueda</h3>
-    <ul id="listaBusqueda"></ul>
-
-   <h3>Filtro Por Estado</h3>
-        <form action="">
-            <label for="filtroEstado">Filtrar Por Estado</label>
+    <main class="dashboard-grid">
         
-            <select name="estados" id="filtroEstado">
-                <option value="" disabled selected>-- Seleccione un Estado --</option>
-                <option value="Pendiente">Pendiente</option>
-                <option value="En Atencion">En Atencion</option>
-                <option value="De Alta">De Alta</option>
-            </select>
-        </form>
+        
+        <div class="col-izquierda">
+            
+           
+            <section class="glass-card">
+                <h2>Ingresar Mascota</h2>
+                <div class="form-group">
+                    <input type="text" id="mascotaNombre" placeholder="Nombre de la Mascota">
+                    <input type="text" id="mascotaEspecie" placeholder="Especie de la Mascota">
+                    <input type="text" id="mascotaPropietario" placeholder="Nombre del Dueño">
+                    <input type="number" id="mascotaEdad" placeholder="Edad de la Mascota">
+                    <button id="btnRegistrar" class="glass-btn">Registrar Mascota</button>
+                </div>
+                <p id="mensaje"></p>
+            </section>
 
+           
+            <section class="glass-card">
+                <h2>Buscar Mascota</h2>
+                <div class="search-group">
+                    <input type="text" id="buscarMascota" placeholder="Nombre de la Mascota">
+                    <button id="btnBuscar" class="glass-btn">Buscar</button>
+                </div>
+                
+                <h3>Resultado Búsqueda</h3>
+                <ul id="listaBusqueda" class="styled-list"></ul>
 
-    <h3>Mascotas Filtradas</h3>
-    <ul id="listaFiltroEstado"></ul>
+                
+                <div id="fichaEdicion" class="edicion-card">
+                    <h3>Ficha de Edición</h3>
+                    <input type="hidden" id="editIndex">
+                    
+                    <label>Nombre:</label>
+                    <input type="text" id="editNombre">
 
-    <h2>Totales Parciales</h2>
-    <h3 id="totalMascotas">Total de Mascotas: 0</h3>
-    <h3 id="totalPendientes">Total de Mascotas Pendientes: 0</h3>
-    <h3 id="totalEnAtencion">Total de Mascotas En Atencion: 0</h3>
-    <h3 id="totalDeAlta">Total de Mascotas De Alta: 0</h3>
+                    <label>Especie:</label>
+                    <input type="text" id="editEspecie">
+
+                    <label>Dueño:</label>
+                    <input type="text" id="editPropietario">
+
+                    <label>Edad:</label>
+                    <input type="number" id="editEdad">
+
+                    <div class="action-buttons">
+                        <button id="btnGuardarCambios" class="guardar-btn">Guardar Cambios</button>
+                        <button id="btnEliminarMascota" class="eliminar-btn">Eliminar Mascota</button>
+                    </div>
+                </div>
+            </section>
+
+            
+            <section class="glass-card">
+                <h2>Filtros</h2>
+                <div class="filter-box">
+                    <label for="filtroEstado">Filtrar por Estado:</label>
+                    <select name="estados" id="filtroEstado" class="glass-select">
+                        <option value="" disabled selected>-- Seleccione un Estado --</option>
+                        <option value="Pendiente">Pendiente</option>
+                        <option value="En Atencion">En Atencion</option>
+                        <option value="De Alta">De Alta</option>
+                    </select>
+                </div>
+
+                <h3>Mascotas Filtradas</h3>
+                <ul id="listaFiltroEstado" class="styled-list"></ul>
+            </section>
+        </div>
+
+        
+        <div class="col-derecha">
+            
+           
+            <section class="glass-card">
+                <h2>Registro Mascotas</h2>
+                <ul id="listaRegistro" class="styled-list"></ul>
+            </section>
+
+            
+            <section class="glass-card totals-card">
+                <h2>Totales Parciales</h2>
+                <div class="totals-grid">
+                    <h3 id="totalMascotas">Total de Mascotas: <span>0</span></h3>
+                    <h3 id="totalPendientes">Pendientes: <span>0</span></h3>
+                    <h3 id="totalEnAtencion">En Atención: <span>0</span></h3>
+                    <h3 id="totalDeAlta">De Alta: <span>0</span></h3>
+                </div>
+            </section>
+        </div>
+
+    </main>
+
+    <footer>
+        <p>&copy; 2026 GeoRed. Todos los derechos reservados.</p>
+        <nav>
+            <ul>
+                <li><a href="https://github.com/GeoRed86">GitHub</a></li>
+                <li><a href="https://wa.me/56981931225?text=Hola,%20necesito%20información%20sobre%20la%20veterinaria" target="_blank">WhatsApp</a></li>
+                <li><a href="/terminos">Términos de Servicio</a></li>
+            </ul>
+        </nav>
+    </footer>
 
     <script src="script.js"></script>
 </body>
 </html>
+

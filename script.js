@@ -82,6 +82,7 @@ function mostrarMascotas() {
 }
 
 function encontrarMascota() {
+
     let buscar = document.getElementById("buscarMascota").value.toLowerCase().trim();
 
     if (buscar === "") {
@@ -93,29 +94,94 @@ function encontrarMascota() {
     let listaBuscar = document.getElementById("listaBusqueda");
     listaBuscar.innerHTML = "";
 
-    let mascotasFiltradas = mascotas.filter(mascota =>
-        mascota.nombre.toLowerCase().includes(buscar)
-    );
+    let resultados = [];
+    mascotas.forEach((mascota, originalIndex) => {
+        if (mascota.nombre.toLowerCase().includes(buscar)) {
+            resultados.push({ ...mascota, originalIndex: originalIndex });
+        }
+    });
 
-    if (mascotasFiltradas.length === 0) {
-        listaBuscar.innerHTML = "No se encotraron Mascotas con el nombre de " + buscar;
+    if (resultados.length === 0) {
+        listaBuscar.innerHTML = "No se encontraron Mascotas con el nombre de " + buscar + " ";
+        document.getElementById("fichaEdicion").style.display = "none";
         return;
     }
 
-    mascotasFiltradas.forEach((mascota, index) => {
+    resultados.forEach((item) => {
         let itemBuscar = document.createElement("li");
 
-        itemBuscar.textContent = mascota.nombre +
-            " | Especie: " + mascota.especie +
-            " | Dueño: " + mascota.propietario +
-            " | Edad: " + mascota.edad +
-            " años | Estado: " + mascota.estado + " ";
+        itemBuscar.textContent = item.nombre + " | Especie: " + item.especie + " | Dueño: " + item.propietario;
 
+        let btnVerFicha = document.createElement("button");
+        btnVerFicha.textContent = "Ver Ficha";
+        btnVerFicha.style.marginLeft = "10px";
+        
+        btnVerFicha.addEventListener("click", function() {
+            mostrarFichaEdicion(item.originalIndex);
+        });
+
+        itemBuscar.appendChild(btnVerFicha);
         listaBuscar.appendChild(itemBuscar);
     });
+}
+
+function guardarCambiosFicha() {
+    let index = document.getElementById("editIndex").value;
 
     
+    let mascotaModificada = {
+        nombre: document.getElementById("editNombre").value.trim(),
+        especie: document.getElementById("editEspecie").value.trim(),
+        propietario: document.getElementById("editPropietario").value.trim(),
+        edad: Number(document.getElementById("editEdad").value),
+        estado: mascotas[index].estado
+    };
+
+    if (mascotaModificada.nombre === "" || mascotaModificada.especie === "" || mascotaModificada.propietario === "") {
+        mostrarMensaje("Error: No puedes dejar campos vacíos en la ficha");
+        return;
+    }
+
+    mascotas[index] = mascotaModificada;
+
+    document.getElementById("fichaEdicion").style.display = "none"; 
+    document.getElementById("listaBusqueda").innerHTML = ""; 
+    mostrarMensaje("Ficha actualizada con éxito.");
+
     limpiarFormulario();
+    mostrarMascotas();
+}
+
+function eliminarMascotaFicha() {
+    let index = document.getElementById("editIndex").value;
+    let nombreMascota = mascotas[index].nombre;
+
+    let confirmar = confirm("¿Estás seguro de eliminar permanentemente el registro de " + nombreMascota);
+    if (!confirmar) return;
+
+    
+    mascotas.splice(index, 1);
+
+    document.getElementById("fichaEdicion").style.display = "none";
+    document.getElementById("listaBusqueda").innerHTML = "";
+    mostrarMensaje("El registro de " + nombreMascota + "ha sido borrado");
+    
+    limpiarFormulario();
+    mostrarMascotas();
+}
+
+function mostrarFichaEdicion(index) {
+    let mascota = mascotas[index];
+
+   
+    document.getElementById("editIndex").value = index;
+    document.getElementById("editNombre").value = mascota.nombre;
+    document.getElementById("editEspecie").value = mascota.especie;
+    document.getElementById("editPropietario").value = mascota.propietario;
+    document.getElementById("editEdad").value = mascota.edad;
+
+    document.getElementById("fichaEdicion").style.display = "block";
+    mostrarMensaje(`Ficha de ${mascota.nombre} abierta para edición.`);
 }
 
 function calcularTotales() {
@@ -174,6 +240,11 @@ function limpiarFormulario() {
     document.getElementById("mascotaPropietario").value = "";
     document.getElementById("mascotaEdad").value = "";
     document.getElementById("buscarMascota").value = "";
+    document.getElementById("editIndex").value = "";
+    document.getElementById("editNombre").value = "";
+    document.getElementById("editEspecie").value = "";
+    document.getElementById("editPropietario").value = "";
+    document.getElementById("editEdad").value = "";
 
 }
 
@@ -210,3 +281,5 @@ function filtrarPorEstado() {
 document.getElementById("btnBuscar").addEventListener("click", encontrarMascota);
 document.getElementById("btnRegistrar").addEventListener("click", registrarMascota);
 document.getElementById("filtroEstado").addEventListener("change", filtrarPorEstado);
+document.getElementById("btnGuardarCambios").addEventListener("click", guardarCambiosFicha);
+document.getElementById("btnEliminarMascota").addEventListener("click", eliminarMascotaFicha);
