@@ -20,13 +20,16 @@ function validarFormulario(mascota) {
     if (mascota.nombre === "") {
         return "Debe ingresar Nombre de la Mascota";
     }
+    if (mascota.nombre.length <= 2 ) {
+        return "El Nombre de la mascota debe tener al menos 3 letras";
+    }
     if (mascota.especie === "") {
         return "Debe ingresar la especie de la mascota";
     }
     if (mascota.propietario === "") {
         return "Debe ingresar el nombre del propietario";
     }
-    if (mascota.edad < 0 || isNaN(mascota.edad)) {
+    if (mascota.edad <= 0 || isNaN(mascota.edad)) {
         return "Debe ingresar edad mayor a 0";
     }
 
@@ -76,6 +79,43 @@ function mostrarMascotas() {
     });
 
     calcularTotales();
+}
+
+function encontrarMascota() {
+    let buscar = document.getElementById("buscarMascota").value.toLowerCase().trim();
+
+    if (buscar === "") {
+        let listaBuscar = document.getElementById("listaBusqueda");
+        listaBuscar.innerHTML = "Por favor, ingresa un nombre para buscar";
+        return; 
+    }
+
+    let listaBuscar = document.getElementById("listaBusqueda");
+    listaBuscar.innerHTML = "";
+
+    let mascotasFiltradas = mascotas.filter(mascota =>
+        mascota.nombre.toLowerCase().includes(buscar)
+    );
+
+    if (mascotasFiltradas.length === 0) {
+        listaBuscar.innerHTML = "No se encotraron Mascotas con el nombre de " + buscar;
+        return;
+    }
+
+    mascotasFiltradas.forEach((mascota, index) => {
+        let itemBuscar = document.createElement("li");
+
+        itemBuscar.textContent = mascota.nombre +
+            " | Especie: " + mascota.especie +
+            " | Dueño: " + mascota.propietario +
+            " | Edad: " + mascota.edad +
+            " años | Estado: " + mascota.estado + " ";
+
+        listaBuscar.appendChild(itemBuscar);
+    });
+
+    
+    limpiarFormulario();
 }
 
 function calcularTotales() {
@@ -133,7 +173,40 @@ function limpiarFormulario() {
     document.getElementById("mascotaEspecie").value = "";
     document.getElementById("mascotaPropietario").value = "";
     document.getElementById("mascotaEdad").value = "";
+    document.getElementById("buscarMascota").value = "";
 
 }
 
+function filtrarPorEstado() {
+    
+    let estadoSeleccionado = document.getElementById("filtroEstado").value;
+
+    let listaFiltro = document.getElementById("listaFiltroEstado");
+    listaFiltro.innerHTML = "";
+
+    let mascotasFiltradas = mascotas.filter(mascota => 
+        mascota.estado === estadoSeleccionado
+    );
+
+    if (mascotasFiltradas.length === 0) {
+        listaFiltro.innerHTML = "No hay mascotas con el estado " + estadoSeleccionado ;
+        return;
+    }
+
+    mascotasFiltradas.forEach((mascota) => {
+        let itemFiltro = document.createElement("li");
+
+        itemFiltro.textContent = mascota.nombre +
+            " | Especie: " + mascota.especie +
+            " | Dueño: " + mascota.propietario +
+            " | Edad: " + mascota.edad +
+            " años | Estado: " + mascota.estado;
+
+        listaFiltro.appendChild(itemFiltro);
+    });
+}
+
+
+document.getElementById("btnBuscar").addEventListener("click", encontrarMascota);
 document.getElementById("btnRegistrar").addEventListener("click", registrarMascota);
+document.getElementById("filtroEstado").addEventListener("change", filtrarPorEstado);

@@ -21,12 +21,28 @@
     <h2>Registro Mascotas</h2>
     <ul id="listaRegistro"></ul>
 
-    <h3>Buscar Mascota</h3>
+    <h2>Buscar Mascota</h2>
     <input type="text" id="buscarMascota" placeholder="Nombre Mascota">
 
     <button id="btnBuscar">Buscar</button>
+    <h3>Resultado Busqueda</h3>
+    <ul id="listaBusqueda"></ul>
 
-    <h3>Filtro Por Estado</h3>
+   <h3>Filtro Por Estado</h3>
+        <form action="">
+            <label for="filtroEstado">Filtrar Por Estado</label>
+        
+            <select name="estados" id="filtroEstado">
+                <option value="" disabled selected>-- Seleccione un Estado --</option>
+                <option value="Pendiente">Pendiente</option>
+                <option value="En Atencion">En Atencion</option>
+                <option value="De Alta">De Alta</option>
+            </select>
+        </form>
+
+
+    <h3>Mascotas Filtradas</h3>
+    <ul id="listaFiltroEstado"></ul>
 
     <h2>Totales Parciales</h2>
     <h3 id="totalMascotas">Total de Mascotas: 0</h3>
