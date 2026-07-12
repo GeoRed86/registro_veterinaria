@@ -1,6 +1,4 @@
-/* ==========================================
-   1. CONFIGURACIÓN GENERAL Y ENTORNO OSCURO
-   ========================================== */
+
 body {
   margin: 0;
   padding: 0;
@@ -10,53 +8,53 @@ body {
   background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
   color: #ffffff;
   position: relative;
-  padding-bottom: 120px; /* Margen de seguridad para el footer */
+  padding-bottom: 120px; 
 }
+
+/* esto no sé porque me ,marca en rojo,  pero como dicen por ahí, si funciona, no lo toques */
 
 h1 {
   text-align: center;
   font-size: 2.8rem;
   background: linear-gradient(to right, #ffffff, #93c5fd);
   -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  margin: 25px 0;
+  -webkit-text-fill-color: transparent; 
+  margin: 25px 0;                      
 }
 
-/* 💻 EL MAESTRO DE LA DISTRIBUCIÓN: Activamos dos columnas de pantalla */
+
 .dashboard-grid {
   width: 95%;
-  max-width: 1400px; /* Expandimos el ancho total para ocupar la pantalla */
+  max-width: 1400px; 
   margin: 0 auto;
   display: grid;
-  /* Crea 2 columnas: la izquierda ocupa 1.2 porciones y la derecha 1 porción del espacio */
+  
   grid-template-columns: 1.2fr 1fr; 
-  gap: 30px; /* Separación física entre ambas columnas */
-  align-items: start; /* Evita que las tarjetas se estiren verticalmente de forma fea */
+  gap: 30px; 
+  align-items: start; 
   position: relative;
   z-index: 10;
 }
 
-/* Espaciado interno vertical para las tarjetas de cada lado */
+
 .col-izquierda, .col-derecha {
   display: flex;
   flex-direction: column;
   gap: 25px;
 }
 
-/* 📱 Diseño Responsivo: Si la pantalla es muy chica (celular), vuelve a una sola columna */
+
 @media (max-width: 900px) {
   .dashboard-grid {
     grid-template-columns: 1fr;
   }
 }
 
-/* ==========================================
-   2. CÍRCULOS FLOTANTES DETRÁS DEL VIDRIO
-   ========================================== */
+
 .circle {
   position: absolute;
   border-radius: 50%;
-  filter: blur(70px); /* Desenfoque alto para simular iluminación ambiental suave */
+  filter: blur(70px); 
   z-index: 1;
 }
 .circle-1 {
@@ -74,21 +72,19 @@ h1 {
   right: 5%;
 }
 
-/* ==========================================
-   3. BLOQUE MAESTRO: GLASSMORPHISM CARD
-   ========================================== */
+
 .glass-card {
   padding: 30px;
   border-radius: 20px;
   
-  /* Núcleo del efecto cristalino: */
-  background: rgba(255, 255, 255, 0.05); /* Opacidad blanca sumamente baja (5%) */
-  backdrop-filter: blur(20px);           /* Difumina los círculos que pasan por detrás */
-  -webkit-backdrop-filter: blur(20px);   /* Compatibilidad requerida por navegadores Apple */
+ 
+  background: rgba(255, 255, 255, 0.05); 
+  backdrop-filter: blur(20px);           
+  -webkit-backdrop-filter: blur(20px);   
   
-  /* Borde sutil que imita el reflejo y brillo en el canto del vidrio */
+ 
   border: 1px solid rgba(255, 255, 255, 0.12);
-  /* Sombra oscura y expandida para simular relieve flotante */
+  
   box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.25);
 }
 
@@ -101,10 +97,7 @@ h1 {
   margin-bottom: 20px;
 }
 
-/* ==========================================
-   4. INPUTS, SELECTS Y COMPONENTES DE TEXTO
-   ========================================== */
-/* Diseñamos las cajas de texto con un look semi-transparente integrado */
+
 input[type="text"],
 input[type="number"],
 .glass-select {
@@ -125,7 +118,7 @@ input::placeholder {
   color: #94a3b8;
 }
 
-/* Efecto de foco cuando el usuario hace clic para escribir */
+
 input:focus,
 .glass-select:focus {
   background: rgba(255, 255, 255, 0.15);
@@ -133,13 +126,13 @@ input:focus,
   box-shadow: 0 0 10px rgba(59, 130, 246, 0.3);
 }
 
-/* Adaptación del select para el menú desplegable oscuro */
+
 .glass-select option {
-  background-color: #1e1b4b; /* Evita que el fondo del menú sea blanco genérico */
+  background-color: #1e1b4b; 
   color: #ffffff;
 }
 
-/* Etiquetas generales de texto dentro de formularios */
+
 label {
   display: inline-block;
   margin-bottom: 5px;
@@ -147,7 +140,7 @@ label {
   color: #cbd5e1;
 }
 
-/* Mensajes informativos breves debajo de los formularios */
+
 #mensaje {
   text-align: center;
   font-weight: 600;
@@ -155,12 +148,10 @@ label {
   margin-top: 10px;
 }
 
-/* ==========================================
-   5. BOTONES DE ACCIÓN (Glass, Guardar, Borrar)
-   ========================================== */
+
 .glass-btn {
   width: 100%;
-  background: rgba(59, 130, 246, 0.25); /* Tinte azul traslúcido */
+  background: rgba(59, 130, 246, 0.25); 
   border: 1px solid rgba(59, 130, 246, 0.4);
   padding: 14px;
   color: #ffffff;
@@ -177,7 +168,7 @@ label {
   box-shadow: 0 6px 20px rgba(59, 130, 246, 0.3);
 }
 
-/* Ficha de Edición dedicada */
+
 .edicion-card {
   margin-top: 20px;
   padding: 20px;
@@ -221,16 +212,14 @@ label {
   opacity: 0.85;
 }
 
-/* ==========================================
-   6. LISTADOS DINÁMICOS Y ELEMENTOS (`<li>`)
-   ========================================== */
+
 .styled-list {
   list-style: none;
   padding: 0;
   margin: 15px 0;
 }
 
-/* Cada renglón de mascota inyectado dinámicamente */
+
 .styled-list li {
   background: rgba(255, 255, 255, 0.04);
   padding: 14px;
@@ -243,7 +232,7 @@ label {
   font-size: 0.95rem;
 }
 
-/* Botones pequeños de acción en línea creados dinámicamente en tu bucle JavaScript */
+
 .styled-list li button {
   background: rgba(255, 255, 255, 0.15);
   border: 1px solid rgba(255, 255, 255, 0.2);
@@ -259,12 +248,10 @@ label {
   background: rgba(255, 255, 255, 0.3);
 }
 
-/* ==========================================
-   7. SECCIÓN DE TOTALES NUMÉRICOS (GRID CARD)
-   ========================================== */
+
 .totals-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr); /* Divide en dos columnas perfectas */
+  grid-template-columns: repeat(2, 1fr); 
   gap: 15px;
 }
 
@@ -287,9 +274,7 @@ label {
   margin-top: 5px;
 }
 
-/* ==========================================
-   8. COMPONENTE FOOTER AL FONDO
-   ========================================== */
+
 footer {
   position: absolute;
   bottom: 0;
