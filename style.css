@@ -4,7 +4,6 @@ body {
   padding: 0;
   min-height: 100vh;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  /* Gradiente profundo obligatorio para que el vidrio resalte */
   background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
   color: #ffffff;
   position: relative;
@@ -76,15 +75,10 @@ h1 {
 .glass-card {
   padding: 30px;
   border-radius: 20px;
-  
- 
   background: rgba(255, 255, 255, 0.05); 
   backdrop-filter: blur(20px);           
   -webkit-backdrop-filter: blur(20px);   
-  
- 
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  
+  border: 1px solid rgba(255, 255, 255, 0.12); 
   box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.25);
 }
 
